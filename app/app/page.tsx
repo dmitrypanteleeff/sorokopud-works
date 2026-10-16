@@ -31,6 +31,72 @@ const steps = [
   },
 ];
 
+const products = [
+  {
+    name: "Кошелёк",
+    price: "4 900 ₽",
+    description:
+      "Формат на 6–8 карт и отделение для купюр. Ручная прошивка седловидным швом.",
+    art: (
+      <svg
+        viewBox="0 0 120 90"
+        className="h-full w-full"
+        role="img"
+        aria-label="Кошелёк"
+      >
+        <rect x="20" y="24" width="80" height="52" rx="8" fill="#3e2c23" />
+        <path d="M20 36h80" stroke="#8c5622" strokeWidth="2" />
+        <circle cx="84" cy="36" r="5" fill="#b87333" />
+      </svg>
+    ),
+  },
+  {
+    name: "Ремень",
+    price: "3 500 ₽",
+    description:
+      "Цельная полоса кожи растительного дубления с латунной пряжкой.",
+    art: (
+      <svg
+        viewBox="0 0 120 90"
+        className="h-full w-full"
+        role="img"
+        aria-label="Ремень"
+      >
+        <rect x="14" y="40" width="92" height="12" rx="4" fill="#3e2c23" />
+        <rect
+          x="12"
+          y="30"
+          width="20"
+          height="32"
+          rx="4"
+          fill="none"
+          stroke="#b87333"
+          strokeWidth="4"
+        />
+        <rect x="19" y="42" width="6" height="8" rx="1" fill="#b87333" />
+      </svg>
+    ),
+  },
+  {
+    name: "Обложка для паспорта",
+    price: "2 900 ₽",
+    description:
+      "Плотная кожа, защита документа и карман для карты.",
+    art: (
+      <svg
+        viewBox="0 0 120 90"
+        className="h-full w-full"
+        role="img"
+        aria-label="Обложка для паспорта"
+      >
+        <rect x="24" y="12" width="72" height="66" rx="6" fill="#3e2c23" />
+        <line x1="60" y1="12" x2="60" y2="78" stroke="#8c5622" strokeWidth="3" />
+        <rect x="38" y="38" width="18" height="14" rx="2" fill="#b87333" />
+      </svg>
+    ),
+  },
+];
+
 export default function Home() {
   return (
     <div className="overflow-hidden">
@@ -61,7 +127,7 @@ export default function Home() {
               натуральное дубление, честные материалы.
             </p>
             <a
-              href="#order"
+              href="#catalog"
               className="mt-8 inline-flex items-center justify-center rounded-lg bg-copper px-7 py-3.5 font-medium text-paper transition-colors hover:bg-copper-deep"
             >
               Выбрать изделие
@@ -70,6 +136,46 @@ export default function Home() {
 
           <div className="relative h-[74vw] max-h-[460px] w-full lg:h-[min(72vh,680px)] lg:max-h-none">
             <AiCoreCanvas />
+          </div>
+        </section>
+
+        {/* Catalog */}
+        <section id="catalog" className="mx-auto w-full max-w-6xl px-6 py-20 lg:px-8">
+          <div className="max-w-2xl">
+            <p className="eyebrow text-sm font-medium text-copper">
+              Каталог товаров
+            </p>
+            <h2 className="mt-4 font-serif text-3xl text-espresso sm:text-4xl">
+              Три категории изделий
+            </h2>
+          </div>
+
+          <div className="mt-10 grid gap-6 md:grid-cols-3">
+            {products.map((product) => (
+              <article
+                key={product.name}
+                className="flex flex-col rounded-2xl border border-linen bg-paper p-6 transition duration-300 hover:-translate-y-1 hover:shadow-lg"
+              >
+                <div className="flex aspect-[4/3] items-center justify-center rounded-xl bg-linen/40 p-6">
+                  {product.art}
+                </div>
+                <h3 className="mt-5 font-serif text-xl text-espresso">
+                  {product.name}
+                </h3>
+                <p className="mt-2 flex-1 leading-relaxed text-ink/70">
+                  {product.description}
+                </p>
+                <p className="mt-4 font-serif text-2xl text-copper">
+                  {product.price}
+                </p>
+                <a
+                  href="#order"
+                  className="mt-5 inline-flex items-center justify-center rounded-lg border border-copper px-4 py-2 text-sm text-copper transition-colors hover:bg-copper hover:text-paper"
+                >
+                  Оставить заявку
+                </a>
+              </article>
+            ))}
           </div>
         </section>
 

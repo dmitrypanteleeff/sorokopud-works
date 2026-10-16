@@ -216,9 +216,9 @@ function Fallback() {
           aria-hidden
           className="mx-auto mb-5 h-24 w-24 rounded-full bg-[radial-gradient(circle_at_35%_30%,#b87333,#3e2c23)] opacity-90 shadow-inner"
         />
-        <p className="font-serif text-lg text-espresso">AI Core</p>
+        <p className="font-serif text-lg text-espresso">TERRA CORIUM</p>
         <p className="mt-1 text-sm text-ink/60">
-          Интерактивная модель сейчас недоступна
+          3D-модель изделия сейчас недоступна
         </p>
       </div>
     </div>
@@ -285,7 +285,7 @@ export default function AiCoreCanvas() {
 
       {!ready && !failed && (
         <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-          <p className="eyebrow text-xs text-espresso/50">Загружаем модель…</p>
+          <p className="eyebrow text-xs text-espresso/50">Загружаем изделие…</p>
         </div>
       )}
     </div>
