@@ -5,7 +5,7 @@ import { useState, type FormEvent } from "react";
 const PRODUCTS = ["Кошелёк", "Ремень", "Обложка для паспорта"];
 
 const fieldClasses =
-  "w-full rounded-lg border border-linen bg-paper px-4 py-3 text-ink outline-none transition-colors placeholder:text-ink/40 focus:border-copper focus:ring-2 focus:ring-copper/30";
+  "w-full rounded-xl border border-linen bg-paper px-4 py-3 text-ink outline-none transition-all placeholder:text-ink/35 focus:border-copper focus:ring-4 focus:ring-copper/15";
 
 export default function LeadForm() {
   const [sent, setSent] = useState(false);
@@ -19,10 +19,26 @@ export default function LeadForm() {
     return (
       <div
         role="status"
-        className="rounded-2xl border border-linen bg-paper p-8 text-center"
+        className="rounded-3xl border border-linen bg-paper p-10 text-center"
       >
-        <p className="font-serif text-2xl text-espresso">Спасибо!</p>
-        <p className="mt-2 text-ink/70">Свяжемся в течение дня.</p>
+        <div className="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-full bg-copper/10">
+          <svg
+            viewBox="0 0 20 20"
+            className="h-6 w-6 text-copper"
+            fill="none"
+            aria-hidden
+          >
+            <path
+              d="M4 10.5l4 4 8-8.5"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </div>
+        <p className="font-serif text-3xl text-espresso">Спасибо!</p>
+        <p className="mt-3 text-ink-soft">Свяжемся в течение дня.</p>
       </div>
     );
   }
@@ -75,10 +91,7 @@ export default function LeadForm() {
         />
       </label>
 
-      <button
-        type="submit"
-        className="w-full rounded-lg bg-copper px-6 py-3 font-medium text-paper transition-colors hover:bg-copper-deep focus:outline-none focus:ring-2 focus:ring-copper/50 focus:ring-offset-2 focus:ring-offset-cream"
-      >
+      <button type="submit" className="btn-primary w-full">
         Отправить заявку
       </button>
     </form>

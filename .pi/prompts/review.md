@@ -1,7 +1,7 @@
 Работай как reviewer. Не редактируй файлы.
 
 1. Прочитай AGENTS.md и docs/brief.md.
-2. В `app` запусти `npm run lint` и `npm run build`.
+2. В корне репозитория запусти `npm run lint` и `npm run build`.
 3. Проверь размер `public/models/ai-core.glb`.
 4. Проверь код на: client/server boundary, загрузку GLB, fallback,
    reduced motion, responsive layout и отсутствие лишних зависимостей.

@@ -200,9 +200,10 @@ function Core({
 function Lights() {
   return (
     <>
-      <ambientLight intensity={1.1} />
-      <directionalLight position={[4, 3, 5]} intensity={2.4} color="#fff1dd" />
-      <pointLight position={[-4, 2, 4]} intensity={0.9} color="#d9c4a8" />
+      <ambientLight intensity={0.95} />
+      <directionalLight position={[4, 3, 5]} intensity={2.6} color="#fff1dd" />
+      <directionalLight position={[-5, 1, -3]} intensity={1.6} color="#c98a4b" />
+      <pointLight position={[-4, 2, 4]} intensity={0.8} color="#d9c4a8" />
       <pointLight position={[0, -3, 2]} intensity={0.5} color="#b87333" />
     </>
   );

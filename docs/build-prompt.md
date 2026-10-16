@@ -1,5 +1,5 @@
 Прочитай AGENTS.md и docs/brief.md.
-Собери минимально полный лендинг TERRA CORIUM внутри `app`.
+Собери минимально полный лендинг TERRA CORIUM в корне репозитория.
 
 Обязательное:
 - Next.js App Router, TypeScript и Tailwind;
