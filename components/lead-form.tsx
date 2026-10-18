@@ -12,6 +12,7 @@ type LeadPayload = {
   contact: string;
   product: string;
   comment: string;
+  consent: boolean;
 };
 
 export default function LeadForm() {
@@ -29,7 +30,6 @@ export default function LeadForm() {
       setConsentError(true);
       return;
     }
-    setSent(true);
 
     const form = event.currentTarget;
     const data = new FormData(form);
@@ -39,6 +39,7 @@ export default function LeadForm() {
       contact: String(data.get("contact") ?? ""),
       product: String(data.get("product") ?? ""),
       comment: String(data.get("comment") ?? ""),
+      consent,
     };
 
     setSending(true);
