@@ -9,9 +9,15 @@ const fieldClasses =
 
 export default function LeadForm() {
   const [sent, setSent] = useState(false);
+  const [consent, setConsent] = useState(false);
+  const [consentError, setConsentError] = useState(false);
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (!consent) {
+      setConsentError(true);
+      return;
+    }
     setSent(true);
   }
 
@@ -44,7 +50,7 @@ export default function LeadForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4" noValidate>
+    <form onSubmit={handleSubmit} className="space-y-4">
       <div className="grid gap-4 sm:grid-cols-2">
         <label className="block">
           <span className="sr-only">Имя</span>
@@ -90,6 +96,35 @@ export default function LeadForm() {
           placeholder="Комментарий (необязательно)"
         />
       </label>
+
+      <div>
+        <label className="flex cursor-pointer items-start gap-3">
+          <input
+            type="checkbox"
+            name="consent"
+            checked={consent}
+            onChange={(event) => {
+              setConsent(event.target.checked);
+              if (event.target.checked) setConsentError(false);
+            }}
+            aria-required="true"
+            aria-invalid={consentError}
+            aria-describedby={consentError ? "consent-error" : undefined}
+            className="mt-0.5 size-4 shrink-0 cursor-pointer accent-copper"
+          />
+          <span className="text-sm leading-relaxed text-ink-soft">
+            Даю согласие на обработку персональных данных
+          </span>
+        </label>
+        {consentError && (
+          <p
+            id="consent-error"
+            className="mt-2 text-sm font-medium text-[#b3402a]"
+          >
+            Необходимо отметить согласие на обработку персональных данных
+          </p>
+        )}
+      </div>
 
       <button type="submit" className="btn-primary w-full">
         Отправить заявку

@@ -4,6 +4,7 @@ import {
   Component,
   useCallback,
   useEffect,
+  useMemo,
   useRef,
   useState,
   useSyncExternalStore,
@@ -35,73 +36,6 @@ function getWebglSupport(): boolean {
     webglSupport = supportsWebGL();
   }
   return webglSupport;
-}
-
-// Remap the model's original cool palette (cyan / graphite / violet)
-// onto the landing's warm leather palette. The metal shell is toned down
-// so it reads as dark instead of reflecting the bright environment to white.
-type MaterialTweak = {
-  color: string;
-  metalness?: number;
-  roughness?: number;
-  emissive?: string;
-  emissiveIntensity?: number;
-};
-
-const MATERIAL_OVERRIDES: Record<string, MaterialTweak> = {
-  // The GLB also has cool emissive glow (cyan/violet); kill it so the warm
-  // base colors below are actually visible.
-  "Electric Cyan": {
-    color: "#3e2c23",
-    roughness: 0.5,
-    emissive: "#000000",
-    emissiveIntensity: 0,
-  }, // core sphere → dark espresso
-  "Graphite Metal": {
-    color: "#2b2b2b",
-    metalness: 0.3,
-    roughness: 0.45,
-    emissive: "#000000",
-    emissiveIntensity: 0,
-  }, // shell → dark ink
-  "Violet Accent": {
-    color: "#b87333",
-    metalness: 0.35,
-    roughness: 0.4,
-    emissive: "#000000",
-    emissiveIntensity: 0,
-  }, // accent → copper
-};
-
-function applyMaterialPalette(scene: THREE.Object3D) {
-  scene.traverse((object) => {
-    const mesh = object as THREE.Mesh;
-    if (!mesh.isMesh) return;
-
-    const materials = Array.isArray(mesh.material)
-      ? mesh.material
-      : [mesh.material];
-
-    for (const material of materials) {
-      const standard = material as THREE.MeshStandardMaterial;
-      const tweak = MATERIAL_OVERRIDES[standard.name];
-      if (!tweak) continue;
-
-      standard.color.set(tweak.color);
-      if (typeof tweak.metalness === "number") {
-        standard.metalness = tweak.metalness;
-      }
-      if (typeof tweak.roughness === "number") {
-        standard.roughness = tweak.roughness;
-      }
-      if (tweak.emissive) {
-        standard.emissive.set(tweak.emissive);
-      }
-      if (typeof tweak.emissiveIntensity === "number") {
-        standard.emissiveIntensity = tweak.emissiveIntensity;
-      }
-    }
-  });
 }
 
 function usePrefersReducedMotion(): boolean {
@@ -146,19 +80,26 @@ function Core({
 }) {
   const group = useRef<THREE.Group>(null);
   const autoY = useRef(0);
-  const { scene } = useGLTF("/models/ai-core.glb");
+  const { scene } = useGLTF("/models/wallet.glb");
+
+  // The wallet GLB is exported front-up (+Y) with its height along Z.
+  // Build a rotated copy so the front face (with the button) looks toward
+  // the camera (+Z) and the wallet stands upright.
+  const model = useMemo(() => {
+    const clone = scene.clone(true);
+    clone.rotation.x = Math.PI / 2;
+    return clone;
+  }, [scene]);
 
   useEffect(() => {
     const target = group.current;
     if (!target) return;
 
-    applyMaterialPalette(scene);
-
     // Fit the model to a predictable size and centre it, whatever its GLB units.
-    const box = new THREE.Box3().setFromObject(scene);
+    const box = new THREE.Box3().setFromObject(model);
     const size = box.getSize(new THREE.Vector3());
     const maxDim = Math.max(size.x, size.y, size.z) || 1;
-    const scale = 2.4 / maxDim;
+    const scale = 2.6 / maxDim;
     const center = box.getCenter(new THREE.Vector3());
 
     target.scale.setScalar(scale);
@@ -169,7 +110,7 @@ function Core({
     );
 
     onReady();
-  }, [scene, onReady]);
+  }, [model, onReady]);
 
   useFrame((state, delta) => {
     const target = group.current;
@@ -192,7 +133,7 @@ function Core({
 
   return (
     <group ref={group}>
-      <primitive object={scene} />
+      <primitive object={model} />
     </group>
   );
 }
