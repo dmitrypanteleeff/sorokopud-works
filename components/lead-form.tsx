@@ -7,18 +7,63 @@ const PRODUCTS = ["Кошелёк", "Ремень", "Обложка для па�
 const fieldClasses =
   "w-full rounded-xl border border-linen bg-paper px-4 py-3 text-ink outline-none transition-all placeholder:text-ink/35 focus:border-copper focus:ring-4 focus:ring-copper/15";
 
+type LeadPayload = {
+  name: string;
+  contact: string;
+  product: string;
+  comment: string;
+};
+
 export default function LeadForm() {
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [consent, setConsent] = useState(false);
   const [consentError, setConsentError] = useState(false);
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    setError(null);
+
     if (!consent) {
       setConsentError(true);
       return;
     }
     setSent(true);
+
+    const form = event.currentTarget;
+    const data = new FormData(form);
+
+    const payload: LeadPayload = {
+      name: String(data.get("name") ?? ""),
+      contact: String(data.get("contact") ?? ""),
+      product: String(data.get("product") ?? ""),
+      comment: String(data.get("comment") ?? ""),
+    };
+
+    setSending(true);
+
+
+    try {
+      const response = await fetch("/api/lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+
+      if (response.ok) {
+        setSent(true);
+      }
+    } catch (err) {
+      console.error("Ошибка отправки заявки:", err);
+      setError("Не удалось отправить заявку. Попробуйте ещё раз.");
+    } finally {
+      setSending(false);
+    }
   }
 
   if (sent) {
@@ -126,8 +171,18 @@ export default function LeadForm() {
         )}
       </div>
 
-      <button type="submit" className="btn-primary w-full">
-        Отправить заявку
+      {error && (
+        <p role="alert" className="text-sm font-medium text-[#b3402a]">
+          {error}
+        </p>
+      )}
+
+      <button
+        type="submit"
+        className="btn-primary w-full disabled:opacity-60"
+        disabled={sending}
+      >
+        {sending ? "Отправляем..." : "Отправить заявку"}
       </button>
     </form>
   );
