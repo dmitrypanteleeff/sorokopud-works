@@ -1,4 +1,5 @@
 import AiCoreCanvas from "@/components/ai-core-canvas";
+import Gallery from "@/components/gallery";
 import LeadForm from "@/components/lead-form";
 
 const capabilities = [
@@ -267,6 +268,23 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Gallery */}
+        <section
+          id="gallery"
+          className="mx-auto w-full max-w-6xl scroll-mt-20 px-6 py-24 lg:px-8"
+        >
+          <div className="max-w-2xl">
+            <p className="eyebrow text-copper">Галерея</p>
+            <h2 className="mt-5 font-serif text-4xl text-espresso sm:text-5xl">
+              Примеры работ
+            </h2>
+          </div>
+
+          <div className="mt-14">
+            <Gallery />
+          </div>
+        </section>
+
         {/* Capabilities */}
         <section
           id="capabilities"
@@ -324,6 +342,86 @@ export default function Home() {
               ))}
             </ol>
           </div>
+        </section>
+
+        {/* SEO */}
+        <section
+          id="handmade"
+          className="mx-auto w-full max-w-6xl scroll-mt-20 px-6 py-24 lg:px-8"
+        >
+          <article>
+            <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
+              <div>
+                <p className="eyebrow text-copper">Философия мастерской</p>
+                <h2 className="mt-5 font-serif text-4xl leading-tight text-espresso sm:text-5xl">
+                  Почему handmade — это{" "}
+                  <em className="italic text-copper">на годы</em>
+                </h2>
+                <p className="mt-8 text-lg leading-relaxed text-ink first-letter:float-left first-letter:mr-3 first-letter:font-serif first-letter:text-6xl first-letter:font-medium first-letter:leading-[0.85] first-letter:text-copper">
+                  Массовое производство оптимизирует скорость и стоимость.
+                  Ручная работа оптимизирует другое — долговечность и честность
+                  материала. Когда мастер шьёт кошелёк вручную, он видит каждый
+                  стежок, проверяет каждое сечение кожи и подбирает дубление
+                  под конкретную задачу.
+                </p>
+                <div className="mt-8 flex flex-wrap gap-2.5">
+                  {[
+                    "Растительное дубление",
+                    "Седловидный шов",
+                    "Гарантия на швы",
+                  ].map((tag) => (
+                    <span
+                      key={tag}
+                      className="rounded-full border border-copper/40 bg-paper px-4 py-1.5 text-sm font-medium text-copper-deep"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                <div className="mt-10 flex flex-wrap items-center gap-4">
+                  <a href="#catalog" className="btn-primary">
+                    Выбрать изделие
+                  </a>
+                  <a href="#order" className="btn-outline">
+                    Оставить заявку
+                  </a>
+                </div>
+              </div>
+
+              <div className="space-y-6 text-lg leading-relaxed text-ink">
+                <p>
+                  Натуральная кожа растительного дубления со временем не
+                  изнашивается, а приобретает характер: темнеет, становится
+                  мягче, ложится по руке. Ручная прошивка вощёной нитью не
+                  расходится при нагрузке — в отличие от машинной строчки,
+                  которая рвётся по шву.
+                </p>
+                <p>
+                  Handmade — это не про «уникальность» ради уникальности. Это
+                  про вещь, которую можно передать дальше. Про
+                  ремонтопригодность, про заменяемость фурнитуры, про материал,
+                  который не стыдно показать через пять лет.
+                </p>
+                <p>
+                  Мы делаем немного и не спешим. Каждый кошелёк, ремень и
+                  обложка проходят через руки мастера — и это видно по стежкам.
+                </p>
+                <blockquote className="border-l-2 border-copper pl-6">
+                  <p className="font-serif text-2xl italic leading-snug text-espresso">
+                    «Ручная прошивка не расходится при нагрузке. Вещь, которую
+                    не стыдно показать через пять лет.»
+                  </p>
+                </blockquote>
+              </div>
+            </div>
+
+            <p className="sr-only">
+              TERRA CORIUM создаёт изделия из натуральной кожи ручной работы:
+              кошелёк handmade, ремень из кожи ручной работы и обложку для
+              паспорта из кожи. Это подарок мужчине, сделанный вручную и
+              рассчитанный на годы.
+            </p>
+          </article>
         </section>
 
         {/* Final CTA + form */}

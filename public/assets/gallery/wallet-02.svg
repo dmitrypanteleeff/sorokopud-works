@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <defs>
+    <linearGradient id="lg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3e2c23"/>
+      <stop offset="1" stop-color="#1f1510"/>
+    </linearGradient>
+    <pattern id="grain" width="5" height="5" patternUnits="userSpaceOnUse">
+      <rect width="5" height="5" fill="none"/>
+      <line x1="0" y1="0" x2="5" y2="5" stroke="#ffffff" stroke-opacity="0.04" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="800" height="600" fill="url(#lg)"/>
+  <rect width="800" height="600" fill="url(#grain)"/>
+  <rect x="28" y="28" width="744" height="544" rx="18" fill="none" stroke="#b87333" stroke-opacity="0.4" stroke-dasharray="5 4" stroke-width="1.5"/>
+  <circle cx="400" cy="230" r="70" fill="none" stroke="#b87333" stroke-opacity="0.45" stroke-width="1.5"/>
+  <text x="400" y="245" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="42" fill="#e8dcc8">Фото скоро появится</text>
+  <text x="400" y="360" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="20" letter-spacing="6" fill="#b87333">TERRA CORIUM</text>
+</svg>
