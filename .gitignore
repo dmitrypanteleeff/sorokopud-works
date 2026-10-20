@@ -44,3 +44,7 @@ next-env.d.ts
 
 # local certs
 Russian_Trusted*
+
+# large source model (104 MB); build it with tools/build-model.mjs
+assets/wallet.glb
+assets/wallet.blend

@@ -80,37 +80,38 @@ function Core({
 }) {
   const group = useRef<THREE.Group>(null);
   const autoY = useRef(0);
-  const { scene } = useGLTF("/models/wallet.glb");
+  // The model is pre-compressed with EXT_meshopt_compression (104 MB -> ~2 MB).
+  // drei wires the meshopt decoder in by default; draco is not needed.
+  const { scene } = useGLTF("/models/wallet.optimized.glb", false, true);
 
-  // The wallet GLB is exported front-up (+Y) with its height along Z.
-  // Build a rotated copy so the front face (with the button) looks toward
-  // the camera (+Z) and the wallet stands upright.
-  const model = useMemo(() => {
+  // The wallet GLB already faces +Z (the cover with the button strap points
+  // at the camera), so no rotation correction is needed. We only centre it
+  // and normalise its size, whatever units the GLB was exported in.
+  const { model, scale } = useMemo(() => {
     const clone = scene.clone(true);
-    clone.rotation.x = Math.PI / 2;
-    return clone;
+    clone.updateMatrixWorld(true);
+
+    const box = new THREE.Box3().setFromObject(clone);
+    const size = box.getSize(new THREE.Vector3());
+    const center = box.getCenter(new THREE.Vector3());
+
+    // Fit the largest dimension into a predictable world size.
+    const maxDim = Math.max(size.x, size.y, size.z) || 1;
+    const s = 2.6 / maxDim;
+
+    // Shift the model so its bounding-box centre sits on the group origin.
+    clone.position.set(-center.x, -center.y, -center.z);
+
+    return { model: clone, scale: s };
   }, [scene]);
 
   useEffect(() => {
     const target = group.current;
     if (!target) return;
 
-    // Fit the model to a predictable size and centre it, whatever its GLB units.
-    const box = new THREE.Box3().setFromObject(model);
-    const size = box.getSize(new THREE.Vector3());
-    const maxDim = Math.max(size.x, size.y, size.z) || 1;
-    const scale = 2.6 / maxDim;
-    const center = box.getCenter(new THREE.Vector3());
-
     target.scale.setScalar(scale);
-    target.position.set(
-      -center.x * scale,
-      -center.y * scale,
-      -center.z * scale,
-    );
-
     onReady();
-  }, [model, onReady]);
+  }, [model, scale, onReady]);
 
   useFrame((state, delta) => {
     const target = group.current;
@@ -122,10 +123,12 @@ function Core({
       return;
     }
 
-    // Very gentle constant rotation plus a tiny pointer reaction.
-    autoY.current += delta * 0.16;
-    const targetY = autoY.current + state.pointer.x * 0.22;
-    const targetX = state.pointer.y * 0.1;
+    // Keep the cover facing the viewer: a gentle swing around the front view
+    // instead of a full spin, so the wallet never turns its back.
+    autoY.current += delta * 0.35;
+    const swing = Math.sin(autoY.current) * 0.32;
+    const targetY = swing + state.pointer.x * 0.18;
+    const targetX = state.pointer.y * 0.08;
 
     target.rotation.y = THREE.MathUtils.lerp(target.rotation.y, targetY, 0.06);
     target.rotation.x = THREE.MathUtils.lerp(target.rotation.x, targetX, 0.06);
