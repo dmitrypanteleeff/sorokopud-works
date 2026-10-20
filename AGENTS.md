@@ -3,7 +3,7 @@
 
 
 ## Mission
-Build a one-page 3D landing for the fictional product TERRA CORIUM.
+Build a one-page 3D landing for the fictional product SOROKOPUD-WORKS.
 Read `docs/brief.md` before planning or editing.
 
 

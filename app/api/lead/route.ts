@@ -80,7 +80,7 @@ export async function POST(request: Request) {
   const safeProduct = product.replace(/[\r\n]+/g, " ").slice(0, 80);
 
   const text = [
-    "Новая заявка с сайта TERRA CORIUM",
+    "Новая заявка с сайта SOROKOPUD-WORKS",
     "",
     `Имя: ${name}`,
     `Контакт: ${contact}`,
@@ -91,7 +91,7 @@ export async function POST(request: Request) {
 
   const html = `
     <div style="font-family:Arial,Helvetica,sans-serif;max-width:560px;margin:0 auto;color:#2b2b2b;line-height:1.6">
-      <h2 style="color:#3e2c23;margin:0 0 16px;font-weight:600">TERRA CORIUM — новая заявка</h2>
+      <h2 style="color:#3e2c23;margin:0 0 16px;font-weight:600">SOROKOPUD-WORKS — новая заявка</h2>
       <table style="width:100%;border-collapse:collapse;font-size:15px">
         <tr>
           <td style="padding:8px 0;color:#8c5622;white-space:nowrap;vertical-align:top">Имя</td>
@@ -126,7 +126,7 @@ export async function POST(request: Request) {
     });
 
     await transporter.sendMail({
-      from: `"TERRA CORIUM" <${from}>`,
+      from: `"SOROKOPUD-WORKS" <${from}>`,
       to,
       subject: `Заявка с сайта — ${safeProduct || "товар не выбран"}`,
       text,

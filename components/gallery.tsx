@@ -13,22 +13,22 @@ type GalleryItem = {
 // public/assets/gallery/ и добавьте одну строку в этот массив.
 const GALLERY: GalleryItem[] = [
   {
-    src: "/assets/gallery/wallet-01.svg",
+    src: "/assets/gallery/wallet-01.png",
     title: "Кошелёк",
     material: "Растительное дубление, ручная прошивка",
   },
   {
-    src: "/assets/gallery/wallet-02.svg",
+    src: "/assets/gallery/wallet-02.png",
     title: "Кошелёк",
     material: "Натуральная кожа, седловидный шов",
   },
   {
-    src: "/assets/gallery/belt-01.svg",
+    src: "/assets/gallery/belt-01.png",
     title: "Ремень",
     material: "Растительное дубление, латунная пряжка",
   },
   {
-    src: "/assets/gallery/belt-02.svg",
+    src: "/assets/gallery/belt-02.png",
     title: "Ремень",
     material: "Ручная прошивка, цельная кожа",
   },

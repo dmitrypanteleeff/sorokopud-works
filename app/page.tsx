@@ -1,3 +1,4 @@
+import Image from "next/image";
 import AiCoreCanvas from "@/components/ai-core-canvas";
 import Gallery from "@/components/gallery";
 import LeadForm from "@/components/lead-form";
@@ -179,11 +180,18 @@ export default function Home() {
     <div className="overflow-hidden">
       <header className="sticky top-0 z-50 border-b border-linen/70 bg-cream/80 backdrop-blur-md">
         <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-4 lg:px-8">
-          <a
-            href="#"
-            className="font-serif text-lg font-semibold tracking-wide text-espresso"
-          >
-            TERRA<span className="text-copper">·</span>CORIUM
+          <a href="#" className="flex items-center gap-3">
+            <Image
+              src="/logo-bird-dark.png"
+              alt=""
+              width={484}
+              height={480}
+              className="h-10 w-auto"
+              priority
+            />
+            <span className="font-serif text-lg font-semibold tracking-wide text-espresso">
+              SOROKOPUD<span className="text-copper">-</span>WORKS
+            </span>
           </a>
           <a href="#order" className="btn-outline">
             Оставить заявку
@@ -230,6 +238,53 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Capabilities */}
+        <section
+          id="capabilities"
+          className="mx-auto w-full max-w-6xl scroll-mt-20 px-6 py-24 lg:px-8"
+        >
+          <div className="max-w-2xl">
+            <p className="eyebrow text-copper">Почему мы</p>
+            <h2 className="mt-5 font-serif text-4xl text-espresso sm:text-5xl">
+              Ремесло в каждой детали
+            </h2>
+          </div>
+
+          <div className="mt-14 grid gap-px overflow-hidden rounded-2xl bg-linen md:grid-cols-3">
+            {capabilities.map((item, index) => (
+              <article
+                key={item.title}
+                className="bg-cream p-10 transition-colors duration-500 hover:bg-paper"
+              >
+                <p className="font-serif text-sm text-copper">
+                  {String(index + 1).padStart(2, "0")}
+                </p>
+                <h3 className="mt-6 font-serif text-2xl text-espresso">
+                  {item.title}
+                </h3>
+                <p className="mt-4 leading-relaxed text-ink-soft">{item.text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        {/* Gallery */}
+        <section
+          id="gallery"
+          className="mx-auto w-full max-w-6xl scroll-mt-20 px-6 py-24 lg:px-8"
+        >
+          <div className="max-w-2xl">
+            <p className="eyebrow text-copper">Галерея</p>
+            <h2 className="mt-5 font-serif text-4xl text-espresso sm:text-5xl">
+              Примеры работ
+            </h2>
+          </div>
+
+          <div className="mt-14">
+            <Gallery />
+          </div>
+        </section>
+
         {/* Catalog */}
         <section
           id="catalog"
@@ -268,79 +323,19 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Gallery */}
-        <section
-          id="gallery"
-          className="mx-auto w-full max-w-6xl scroll-mt-20 px-6 py-24 lg:px-8"
-        >
-          <div className="max-w-2xl">
-            <p className="eyebrow text-copper">Галерея</p>
-            <h2 className="mt-5 font-serif text-4xl text-espresso sm:text-5xl">
-              Примеры работ
+        {/* CTA после каталога */}
+        <section className="mx-auto w-full max-w-6xl scroll-mt-20 px-6 py-24 lg:px-8">
+          <div className="rounded-3xl border border-linen bg-paper p-8 shadow-card-lg sm:p-10">
+            <h2 className="font-serif text-3xl leading-tight text-espresso sm:text-4xl">
+              Не нашли нужное? Сделаем на заказ.
             </h2>
-          </div>
-
-          <div className="mt-14">
-            <Gallery />
-          </div>
-        </section>
-
-        {/* Capabilities */}
-        <section
-          id="capabilities"
-          className="mx-auto w-full max-w-6xl scroll-mt-20 px-6 py-24 lg:px-8"
-        >
-          <div className="max-w-2xl">
-            <p className="eyebrow text-copper">Почему мы</p>
-            <h2 className="mt-5 font-serif text-4xl text-espresso sm:text-5xl">
-              Ремесло в каждой детали
-            </h2>
-          </div>
-
-          <div className="mt-14 grid gap-px overflow-hidden rounded-2xl bg-linen md:grid-cols-3">
-            {capabilities.map((item, index) => (
-              <article
-                key={item.title}
-                className="bg-cream p-10 transition-colors duration-500 hover:bg-paper"
-              >
-                <p className="font-serif text-sm text-copper">
-                  {String(index + 1).padStart(2, "0")}
-                </p>
-                <h3 className="mt-6 font-serif text-2xl text-espresso">
-                  {item.title}
-                </h3>
-                <p className="mt-4 leading-relaxed text-ink-soft">{item.text}</p>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        {/* Workflow */}
-        <section id="workflow" className="scroll-mt-20 bg-espresso-deep text-cream">
-          <div className="mx-auto w-full max-w-6xl px-6 py-24 lg:px-8">
-            <div className="max-w-2xl">
-              <p className="eyebrow text-copper-bright">Как это работает</p>
-              <h2 className="mt-5 font-serif text-4xl text-cream sm:text-5xl">
-                Три шага до заказа
-              </h2>
+            <p className="mt-4 max-w-md text-lg leading-relaxed text-ink-soft">
+              Оставьте контакты — обсудим цвет, тиснение и размер. Без спешки и
+              маркетингового шума.
+            </p>
+            <div className="mt-8">
+              <LeadForm />
             </div>
-
-            <ol className="mt-14 grid gap-8 md:grid-cols-3">
-              {steps.map((step, index) => (
-                <li
-                  key={step.title}
-                  className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-8"
-                >
-                  <p className="font-serif text-5xl leading-none text-copper/40">
-                    {index + 1}
-                  </p>
-                  <h3 className="mt-6 font-serif text-2xl text-cream">
-                    {step.title}
-                  </h3>
-                  <p className="mt-3 leading-relaxed text-cream/60">{step.text}</p>
-                </li>
-              ))}
-            </ol>
           </div>
         </section>
 
@@ -416,12 +411,41 @@ export default function Home() {
             </div>
 
             <p className="sr-only">
-              TERRA CORIUM создаёт изделия из натуральной кожи ручной работы:
+              SOROKOPUD-WORKS создаёт изделия из натуральной кожи ручной работы:
               кошелёк handmade, ремень из кожи ручной работы и обложку для
               паспорта из кожи. Это подарок мужчине, сделанный вручную и
               рассчитанный на годы.
             </p>
           </article>
+        </section>
+
+        {/* Workflow */}
+        <section id="workflow" className="scroll-mt-20 bg-espresso-deep text-cream">
+          <div className="mx-auto w-full max-w-6xl px-6 py-24 lg:px-8">
+            <div className="max-w-2xl">
+              <p className="eyebrow text-copper-bright">Как это работает</p>
+              <h2 className="mt-5 font-serif text-4xl text-cream sm:text-5xl">
+                Три шага до заказа
+              </h2>
+            </div>
+
+            <ol className="mt-14 grid gap-8 md:grid-cols-3">
+              {steps.map((step, index) => (
+                <li
+                  key={step.title}
+                  className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-8"
+                >
+                  <p className="font-serif text-5xl leading-none text-copper/40">
+                    {index + 1}
+                  </p>
+                  <h3 className="mt-6 font-serif text-2xl text-cream">
+                    {step.title}
+                  </h3>
+                  <p className="mt-3 leading-relaxed text-cream/60">{step.text}</p>
+                </li>
+              ))}
+            </ol>
+          </div>
         </section>
 
         {/* Final CTA + form */}
@@ -449,11 +473,20 @@ export default function Home() {
 
       <footer className="bg-espresso-deep text-cream/70">
         <div className="mx-auto flex w-full max-w-6xl flex-col gap-3 px-6 py-10 text-sm sm:flex-row sm:items-center sm:justify-between lg:px-8">
-          <p className="font-serif text-lg text-cream">
-            TERRA<span className="text-copper-bright">·</span>CORIUM
-          </p>
+          <div className="flex items-center gap-3">
+            <Image
+              src="/logo-bird-light.png"
+              alt=""
+              width={484}
+              height={480}
+              className="h-10 w-auto"
+            />
+            <span className="font-serif text-lg text-cream">
+              SOROKOPUD<span className="text-copper-bright">-</span>WORKS
+            </span>
+          </div>
           <p className="text-cream/55">
-            © 2025. Изделия из натуральной кожи ручной работы.
+            © {new Date().getFullYear()}. Изделия из натуральной кожи ручной работы.
           </p>
         </div>
       </footer>

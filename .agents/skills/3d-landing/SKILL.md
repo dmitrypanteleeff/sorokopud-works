@@ -1,5 +1,5 @@
 name: 3d-landing
-description: Use when building, changing or reviewing the TERRA CORIUM 3D landing in this repo.
+description: Use when building, changing or reviewing the SOROKOPUD-WORKS 3D landing in this repo.
 ---
 
 

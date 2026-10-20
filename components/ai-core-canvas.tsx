@@ -158,7 +158,7 @@ function Fallback() {
           aria-hidden
           className="mx-auto mb-5 h-24 w-24 rounded-full bg-[radial-gradient(circle_at_35%_30%,#b87333,#3e2c23)] opacity-90 shadow-inner"
         />
-        <p className="font-serif text-lg text-espresso">TERRA CORIUM</p>
+        <p className="font-serif text-lg text-espresso">SOROKOPUD-WORKS</p>
         <p className="mt-1 text-sm text-ink/60">
           3D-модель изделия сейчас недоступна
         </p>
